@@ -1,0 +1,44 @@
+{
+  "model": {
+    "name": "gpt2",
+    "model_path": "./models/fine_tuned_gpt2",
+    "max_length": 512,
+    "temperature": 0.7,
+    "top_p": 0.9,
+    "top_k": 50,
+    "num_return_sequences": 1
+  },
+  "training": {
+    "output_dir": "./models/fine_tuned_gpt2",
+    "num_train_epochs": 3,
+    "per_device_train_batch_size": 4,
+    "gradient_accumulation_steps": 2,
+    "learning_rate": 5e-5,
+    "warmup_steps": 100,
+    "save_steps": 500,
+    "save_total_limit": 2,
+    "logging_steps": 50,
+    "eval_strategy": "steps",
+    "eval_steps": 500,
+    "max_seq_length": 256
+  },
+  "data": {
+    "raw_data_path": "./data/raw/laravel_qa_dataset.json",
+    "processed_data_path": "./data/processed/training_data.json",
+    "knowledge_base_path": "./data/knowledge_base/local_db.json",
+    "test_split": 0.1
+  },
+  "retrieval": {
+    "method": "local",
+    "similarity_threshold": 0.7,
+    "top_k_results": 3,
+    "use_web_fallback": false
+  },
+  "generation": {
+    "max_new_tokens": 200,
+    "min_length": 10,
+    "do_sample": true,
+    "early_stopping": true,
+    "no_repeat_ngram_size": 3
+  }
+}

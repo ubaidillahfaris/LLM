@@ -1,0 +1,9 @@
+{
+  "cara install laravel": "Untuk install Laravel: 1) Install PHP >= 8.1 dan Composer, 2) Jalankan 'composer create-project laravel/laravel nama-project', 3) Masuk folder 'cd nama-project', 4) Jalankan 'php artisan serve', 5) Akses http://localhost:8000",
+  "apa itu laravel": "Laravel adalah PHP framework untuk web development yang menggunakan pattern MVC. Dibuat oleh Taylor Otwell. Fitur: Eloquent ORM, Blade templating, Artisan CLI, Authentication, Routing, Middleware, Migration, dan banyak lagi.",
+  "apa itu eloquent": "Eloquent ORM adalah Active Record pattern di Laravel untuk database. Setiap tabel punya Model. Contoh: User::all(), User::find(1), User::where('email', $email)->first().",
+  "cara buat controller": "Gunakan artisan: 'php artisan make:controller NamaController'. Untuk resource controller tambahkan --resource. Controller ada di app/Http/Controllers/.",
+  "cara buat migration": "Jalankan 'php artisan make:migration create_table_name'. Edit file di database/migrations/. Isi method up() untuk create table dan down() untuk drop. Jalankan dengan 'php artisan migrate'.",
+  "cara buat route": "Routes ada di routes/web.php. Contoh: Route::get('/home', function() { return view('home'); }), Route::get('/users', [UserController::class, 'index']).",
+  "apa itu middleware": "Middleware adalah filter HTTP request. Buat dengan 'php artisan make:middleware NamaMiddleware'. Implement method handle(). Daftarkan di Kernel.php."
+}
