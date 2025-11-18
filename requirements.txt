@@ -1,0 +1,24 @@
+# Core dependencies
+torch>=2.0.0
+transformers>=4.30.0
+datasets>=2.12.0
+
+# Data processing
+pandas>=2.0.0
+numpy>=1.24.0
+
+# Utilities
+tqdm>=4.65.0
+python-dotenv>=1.0.0
+
+# Optional: Web scraping (jika mau implement web fallback)
+# requests>=2.31.0
+# beautifulsoup4>=4.12.0
+
+# Optional: Vector search (untuk advanced retrieval)
+# faiss-cpu>=1.7.4
+# sentence-transformers>=2.2.0
+
+# Development
+jupyter>=1.0.0
+ipykernel>=6.23.0

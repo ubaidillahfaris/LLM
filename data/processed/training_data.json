@@ -1,0 +1,42 @@
+[
+  {
+    "prompt": "Q: Bagaimana cara install Laravel?\nA:",
+    "completion": " Untuk install Laravel: 1) Install PHP >= 8.1 dan Composer, 2) Jalankan 'composer create-project laravel/laravel nama-project', 3) Masuk folder 'cd nama-project', 4) Jalankan 'php artisan serve', 5) Akses http://localhost:8000"
+  },
+  {
+    "prompt": "Q: Apa itu Eloquent ORM?\nA:",
+    "completion": " Eloquent ORM adalah Active Record pattern di Laravel untuk database. Setiap tabel punya Model. Contoh: User::all(), User::find(1), User::where('email', $email)->first(). Model extends Model class dengan properties seperti $table dan $fillable."
+  },
+  {
+    "prompt": "Q: Bagaimana cara membuat controller?\nA:",
+    "completion": " Gunakan artisan: 'php artisan make:controller NamaController'. Untuk resource controller tambahkan --resource. Controller ada di app/Http/Controllers/. Contoh method: public function index() { return view('users.index'); }"
+  },
+  {
+    "prompt": "Q: Bagaimana cara membuat migration?\nA:",
+    "completion": " Jalankan 'php artisan make:migration create_table_name'. Edit file di database/migrations/. Isi method up() untuk create table dan down() untuk drop. Gunakan Schema::create(). Jalankan dengan 'php artisan migrate'."
+  },
+  {
+    "prompt": "Q: Bagaimana cara membuat route?\nA:",
+    "completion": " Routes ada di routes/web.php. Contoh: Route::get('/home', function() { return view('home'); }), Route::get('/users', [UserController::class, 'index']), Route::get('/user/{id}', [UserController::class, 'show']), Route::resource('posts', PostController::class)."
+  },
+  {
+    "prompt": "Q: Apa itu middleware?\nA:",
+    "completion": " Middleware adalah filter HTTP request. Buat dengan 'php artisan make:middleware NamaMiddleware'. Implement method handle() yang return $next($request). Daftarkan di Kernel.php. Gunakan di route dengan ->middleware('nama')."
+  },
+  {
+    "prompt": "Q: Bagaimana setup authentication?\nA:",
+    "completion": " Install Laravel Breeze: 'composer require laravel/breeze --dev', 'php artisan breeze:install', 'npm install && npm run dev', 'php artisan migrate'. Atau gunakan Laravel UI: 'composer require laravel/ui', 'php artisan ui vue --auth'."
+  },
+  {
+    "prompt": "Q: Bagaimana cara membuat seeder?\nA:",
+    "completion": " Buat seeder: 'php artisan make:seeder UserSeeder'. Edit di database/seeders/. Isi method run() dengan User::create(). Panggil di DatabaseSeeder.php dengan $this->call(UserSeeder::class). Jalankan 'php artisan db:seed'."
+  },
+  {
+    "prompt": "Q: Bagaimana cara validasi form?\nA:",
+    "completion": " Di controller gunakan $request->validate() dengan rules array. Contoh: 'title' => 'required|max:255', 'email' => 'required|email|unique:users'. Atau buat Form Request dengan 'php artisan make:request StorePostRequest'."
+  },
+  {
+    "prompt": "Q: Bagaimana cara menggunakan Blade?\nA:",
+    "completion": " Blade file di resources/views/ dengan extension .blade.php. Syntax: {{ $var }} untuk echo, @if @foreach untuk control, @extends @section @yield untuk layout. Contoh: @extends('layouts.app'), @section('content'), @endsection."
+  }
+]

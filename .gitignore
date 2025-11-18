@@ -1,0 +1,77 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+*.ipynb_checkpoints/
+
+# PyCharm
+.idea/
+
+# VS Code
+.vscode/
+
+# Model files (large files)
+models/fine_tuned_gpt2/*.bin
+models/fine_tuned_gpt2/*.pt
+models/fine_tuned_gpt2/*.safetensors
+models/*.pth
+*.h5
+
+# Keep model structure but not weights
+!models/fine_tuned_gpt2/config.json
+!models/fine_tuned_gpt2/tokenizer*
+
+# Logs
+*.log
+logs/
+models/fine_tuned_gpt2/runs/
+models/fine_tuned_gpt2/logs/
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Environment variables
+.env
+.env.local
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# Cache
+.cache/
+*.cache
+
+# Old notebook
+Untitled*.ipynb

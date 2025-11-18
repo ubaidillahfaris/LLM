@@ -1,0 +1,107 @@
+[
+  {
+    "id": 1,
+    "question": "Bagaimana cara install Laravel?",
+    "answer": "Untuk install Laravel, ikuti langkah berikut:\n1. Pastikan sudah install PHP >= 8.1 dan Composer\n2. Jalankan command: composer create-project laravel/laravel nama-project\n3. Masuk ke folder project: cd nama-project\n4. Jalankan server: php artisan serve\n5. Akses di browser: http://localhost:8000",
+    "category": "installation",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 2,
+    "question": "Apa itu Eloquent ORM di Laravel?",
+    "answer": "Eloquent ORM adalah implementasi Active Record pattern di Laravel untuk berinteraksi dengan database. Setiap tabel database memiliki Model yang corresponding. Contoh:\n\nclass User extends Model {\n    protected $table = 'users';\n    protected $fillable = ['name', 'email', 'password'];\n}\n\nUntuk query: User::all(), User::find(1), User::where('email', $email)->first()",
+    "category": "eloquent",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 3,
+    "question": "Bagaimana cara membuat controller di Laravel?",
+    "answer": "Untuk membuat controller di Laravel:\n1. Gunakan artisan command: php artisan make:controller NamaController\n2. Untuk resource controller: php artisan make:controller NamaController --resource\n3. Controller akan dibuat di app/Http/Controllers/\n4. Contoh isi controller:\n\nnamespace App\\Http\\Controllers;\n\nuse Illuminate\\Http\\Request;\n\nclass UserController extends Controller {\n    public function index() {\n        return view('users.index');\n    }\n}",
+    "category": "controllers",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 4,
+    "question": "Bagaimana cara membuat migration di Laravel?",
+    "answer": "Untuk membuat migration:\n1. Command: php artisan make:migration create_users_table\n2. File migration ada di database/migrations/\n3. Edit method up() untuk create table dan down() untuk drop table\n4. Contoh:\n\npublic function up() {\n    Schema::create('users', function (Blueprint $table) {\n        $table->id();\n        $table->string('name');\n        $table->string('email')->unique();\n        $table->timestamps();\n    });\n}\n\n5. Jalankan migration: php artisan migrate",
+    "category": "migrations",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 5,
+    "question": "Bagaimana cara membuat route di Laravel?",
+    "answer": "Routes di Laravel didefinisikan di folder routes/. Untuk web routes, gunakan routes/web.php:\n\n// Basic route\nRoute::get('/home', function () {\n    return view('home');\n});\n\n// Route ke controller\nRoute::get('/users', [UserController::class, 'index']);\n\n// Route dengan parameter\nRoute::get('/user/{id}', [UserController::class, 'show']);\n\n// Resource route (CRUD otomatis)\nRoute::resource('posts', PostController::class);",
+    "category": "routing",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 6,
+    "question": "Apa itu middleware di Laravel dan bagaimana cara membuatnya?",
+    "answer": "Middleware adalah filter untuk HTTP request. Berguna untuk authentication, logging, CORS, dll.\n\nCara membuat:\n1. Command: php artisan make:middleware CheckAge\n2. Edit file di app/Http/Middleware/CheckAge.php:\n\npublic function handle($request, Closure $next) {\n    if ($request->age <= 18) {\n        return redirect('home');\n    }\n    return $next($request);\n}\n\n3. Daftarkan di app/Http/Kernel.php\n4. Gunakan di route: Route::get('/admin', function () {...})->middleware('checkage');",
+    "category": "middleware",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 7,
+    "question": "Bagaimana cara membuat authentication di Laravel?",
+    "answer": "Laravel menyediakan authentication scaffolding:\n\n1. Install Laravel Breeze (recommended untuk starter):\ncomposer require laravel/breeze --dev\nphp artisan breeze:install\nnpm install && npm run dev\nphp artisan migrate\n\n2. Atau gunakan Laravel UI:\ncomposer require laravel/ui\nphp artisan ui vue --auth\nnpm install && npm run dev\nphp artisan migrate\n\nIni akan membuat login, register, forgot password, dan dashboard otomatis.",
+    "category": "authentication",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 8,
+    "question": "Bagaimana cara membuat seeder di Laravel?",
+    "answer": "Seeder digunakan untuk mengisi database dengan data dummy:\n\n1. Buat seeder: php artisan make:seeder UserSeeder\n2. Edit database/seeders/UserSeeder.php:\n\npublic function run() {\n    User::create([\n        'name' => 'Admin',\n        'email' => 'admin@example.com',\n        'password' => Hash::make('password')\n    ]);\n}\n\n3. Panggil di DatabaseSeeder.php:\npublic function run() {\n    $this->call(UserSeeder::class);\n}\n\n4. Jalankan: php artisan db:seed",
+    "category": "seeding",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 9,
+    "question": "Bagaimana cara membuat factory di Laravel?",
+    "answer": "Factory digunakan untuk generate data testing:\n\n1. Buat factory: php artisan make:factory PostFactory\n2. Edit database/factories/PostFactory.php:\n\npublic function definition() {\n    return [\n        'title' => $this->faker->sentence(),\n        'content' => $this->faker->paragraph(),\n        'user_id' => User::factory(),\n    ];\n}\n\n3. Gunakan di seeder atau test:\nPost::factory()->count(50)->create();\n\n4. Dengan relationship:\nUser::factory()\n    ->has(Post::factory()->count(3))\n    ->create();",
+    "category": "factory",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 10,
+    "question": "Bagaimana cara validasi form di Laravel?",
+    "answer": "Laravel menyediakan validation yang powerful:\n\n1. Di controller:\npublic function store(Request $request) {\n    $validated = $request->validate([\n        'title' => 'required|max:255',\n        'email' => 'required|email|unique:users',\n        'password' => 'required|min:8|confirmed',\n        'age' => 'required|numeric|min:18',\n    ]);\n    // Process validated data\n}\n\n2. Atau buat Form Request:\nphp artisan make:request StorePostRequest\n\nEdit rules():\npublic function rules() {\n    return [\n        'title' => 'required|max:255',\n        'content' => 'required',\n    ];\n}",
+    "category": "validation",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 11,
+    "question": "Bagaimana cara menggunakan Blade template di Laravel?",
+    "answer": "Blade adalah template engine Laravel:\n\n1. File Blade berekstensi .blade.php di folder resources/views/\n2. Syntax dasar:\n   - {{ $variable }} untuk echo (auto-escaped)\n   - {!! $html !!} untuk raw HTML\n   - @if, @foreach, @for untuk control structures\n   - @extends, @section, @yield untuk layout\n\n3. Contoh layout (layouts/app.blade.php):\n<html>\n<head><title>@yield('title')</title></head>\n<body>\n    @yield('content')\n</body>\n</html>\n\n4. Gunakan di view:\n@extends('layouts.app')\n@section('title', 'Home')\n@section('content')\n    <h1>Welcome</h1>\n@endsection",
+    "category": "blade",
+    "difficulty": "beginner"
+  },
+  {
+    "id": 12,
+    "question": "Bagaimana cara menggunakan relationship di Eloquent?",
+    "answer": "Eloquent mendukung berbagai relationship:\n\n1. One to One:\nclass User extends Model {\n    public function profile() {\n        return $this->hasOne(Profile::class);\n    }\n}\n\n2. One to Many:\nclass Post extends Model {\n    public function comments() {\n        return $this->hasMany(Comment::class);\n    }\n}\n\n3. Many to Many:\nclass User extends Model {\n    public function roles() {\n        return $this->belongsToMany(Role::class);\n    }\n}\n\n4. Akses relationship:\n$user->profile\n$post->comments\n$user->roles",
+    "category": "eloquent",
+    "difficulty": "advanced"
+  },
+  {
+    "id": 13,
+    "question": "Bagaimana cara menggunakan Queue di Laravel?",
+    "answer": "Queue digunakan untuk defer time-consuming tasks:\n\n1. Setup queue di .env:\nQUEUE_CONNECTION=database\n\n2. Buat jobs table:\nphp artisan queue:table\nphp artisan migrate\n\n3. Buat job:\nphp artisan make:job SendEmailJob\n\n4. Edit job:\npublic function handle() {\n    Mail::to($this->user)->send(new WelcomeEmail());\n}\n\n5. Dispatch job:\nSendEmailJob::dispatch($user);\n\n6. Jalankan queue worker:\nphp artisan queue:work",
+    "category": "queue",
+    "difficulty": "advanced"
+  },
+  {
+    "id": 14,
+    "question": "Bagaimana cara caching di Laravel?",
+    "answer": "Laravel menyediakan caching API yang unified:\n\n1. Setup cache driver di .env (file, redis, memcached, dll)\n\n2. Basic usage:\n// Store cache\nCache::put('key', 'value', $seconds);\nCache::forever('key', 'value');\n\n// Retrieve cache\n$value = Cache::get('key');\n$value = Cache::get('key', 'default');\n\n// Remember (get or store)\n$value = Cache::remember('users', 3600, function () {\n    return DB::table('users')->get();\n});\n\n3. Clear cache:\nCache::forget('key');\nCache::flush();\nphp artisan cache:clear",
+    "category": "caching",
+    "difficulty": "intermediate"
+  },
+  {
+    "id": 15,
+    "question": "Bagaimana cara membuat API dengan Laravel?",
+    "answer": "Untuk membuat RESTful API di Laravel:\n\n1. Gunakan routes/api.php untuk API routes\n2. Buat API controller:\nphp artisan make:controller API/UserController --api\n\n3. Contoh controller:\npublic function index() {\n    return response()->json(User::all());\n}\n\npublic function store(Request $request) {\n    $user = User::create($request->validated());\n    return response()->json($user, 201);\n}\n\n4. API Resources untuk format response:\nphp artisan make:resource UserResource\n\n5. Authentication dengan Sanctum:\ncomposer require laravel/sanctum\nphp artisan sanctum:install",
+    "category": "api",
+    "difficulty": "advanced"
+  }
+]
